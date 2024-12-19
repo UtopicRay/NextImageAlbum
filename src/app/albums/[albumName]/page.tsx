@@ -4,8 +4,9 @@ import UploadButton from "@/components/UploadButton";
 import ImagesGrid from "@/components/ImagesGrid";
 import CloudinaryImage from "@/components/CloudinaryImage";
 
-export default async function AlbumName({params: {albumName}}: { params: { albumName: string } })
+export default async function AlbumName({params,}:{params: Promise<{albumName:string}>})
 {
+    const albumName=(await params).albumName
     const images =await cloudinary.v2.api.resources_by_asset_folder(albumName,{fields:"tags"}) as {resources:ImageAPI[]};
     return (
         <section>

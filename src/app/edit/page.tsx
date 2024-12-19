@@ -1,11 +1,9 @@
 import UploadButton from "@/components/UploadButton";
 import EditPanel from "@/app/edit/EditPanel";
 
-export default async function EditPage({searchParams: {publicId}}: {
-    searchParams: {
-        publicId: string,
-    }
+export default async function EditPage({searchParams}:{searchParams:Promise<{publicId:string}>
 }) {
+    const publicId=(await searchParams).publicId
     return (
         <section>
             <div className='flex justify-between'>

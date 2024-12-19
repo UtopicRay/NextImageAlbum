@@ -7,8 +7,8 @@ import {Suspense} from "react";
 import {LoaderCircle} from "lucide-react";
 import SearchComponent from "@/components/SearchComponent";
 
-export default async function  GalleryPage({searchParams: {tag}}:{searchParams:{tag?:string}}) {
-    console.log(tag);
+export default async function  GalleryPage({searchParams}:{searchParams:Promise<{tag?:string}>}) {
+    const tag=(await searchParams).tag
     const results = await cloudinary.v2.search.expression(`${tag?`tags=${tag}`:""}`).fields('tags').execute() as { resources: ImageAPI[] }
 
     return(
