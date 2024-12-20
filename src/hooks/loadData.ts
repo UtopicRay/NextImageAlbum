@@ -3,6 +3,8 @@ import {ImageAPI} from "@/types";
 import cloudinaryAPI from "@/lib/cloudinaryAPI";
 
 
+const cloudinaryAPI =cloudinary.v2
+
 export async function loadAlbums() {
     return await cloudinaryAPI.api.root_folders();
 }
