@@ -2,15 +2,13 @@ import {Tabs, TabsContent,} from "@/components/ui/tabs"
 import {ScrollArea, ScrollBar} from '@/components/ui/scroll-area'
 import {Separator} from "@/components/ui/separator";
 import UploadButton from "@/components/UploadButton";
-import cloudinary from "cloudinary";
-import {Folder, ImageAPI} from "@/types";
+import {Folder} from "@/types";
 import AlbumCard from "@/app/albums/AlbumCard";
 import ScrollBarFavorites from "@/components/ScrollBarFavorites";
-import {loadAlbums} from "@/hooks/loadData";
+import {loadAlbums, loadFavorites} from "@/hooks/loadData";
 
 export default  async function Home() {
-  const favorites = await cloudinary.v2.search.fields('tags').sort_by('created_at', 'desc').max_results(5)
-      .execute() as { resources: ImageAPI[] };
+  const favorites =await loadFavorites({max_results:5});
   const {folders} = await loadAlbums()
   return (
       <div className="col-span-3 lg:col-span-4 lg:border-l w-full">
