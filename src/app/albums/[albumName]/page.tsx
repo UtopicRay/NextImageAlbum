@@ -1,13 +1,12 @@
-import cloudinary from "cloudinary";
-import {ImageAPI} from "@/types";
 import UploadButton from "@/components/UploadButton";
 import ImagesGrid from "@/components/ImagesGrid";
 import CloudinaryImage from "@/components/CloudinaryImage";
+import {loadImagesByAlbum} from "@/hooks/loadData";
 
 export default async function AlbumName({params,}:{params: Promise<{albumName:string}>})
 {
     const albumName=(await params).albumName
-    const images =await cloudinary.v2.api.resources_by_asset_folder(albumName,{fields:"tags"}) as {resources:ImageAPI[]};
+    const images = await loadImagesByAlbum(albumName)
     return (
         <section>
             <div className='flex justify-between'>

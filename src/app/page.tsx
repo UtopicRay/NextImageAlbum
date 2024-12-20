@@ -6,11 +6,12 @@ import cloudinary from "cloudinary";
 import {Folder, ImageAPI} from "@/types";
 import AlbumCard from "@/app/albums/AlbumCard";
 import ScrollBarFavorites from "@/components/ScrollBarFavorites";
+import {loadAlbums} from "@/hooks/loadData";
 
 export default  async function Home() {
   const favorites = await cloudinary.v2.search.fields('tags').sort_by('created_at', 'desc').max_results(5)
       .execute() as { resources: ImageAPI[] };
-  const {folders} = await cloudinary.v2.api.root_folders();
+  const {folders} = await loadAlbums()
   return (
       <div className="col-span-3 lg:col-span-4 lg:border-l w-full">
         <div className="h-full px-4 py-6 lg:px-8">

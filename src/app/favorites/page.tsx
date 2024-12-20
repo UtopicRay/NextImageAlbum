@@ -1,11 +1,9 @@
-import cloudinary from "cloudinary";
-import {ImageAPI} from "@/types";
 import FavoriteList from "@/app/favorites/FavoriteList";
 import UploadButton from "@/components/UploadButton";
+import {loadFavorites} from "@/hooks/loadData";
 
 export default async function FavoritePage() {
-    const results = await cloudinary.v2.search.expression("tags=favorite").fields('tags').max_results(10)
-        .execute() as { resources: ImageAPI[] };
+    const results = await  loadFavorites({});
     return (
         <section>
             <div className='flex justify-between'>

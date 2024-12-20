@@ -1,15 +1,14 @@
 import UploadButton from "@/components/UploadButton";
-import cloudinary from "cloudinary";
-import {ImageAPI} from "@/types";
 import ImagesGrid from "@/components/ImagesGrid";
 import CloudinaryImage from "@/components/CloudinaryImage";
 import {Suspense} from "react";
 import {LoaderCircle} from "lucide-react";
 import SearchComponent from "@/components/SearchComponent";
+import {loadSearchImages} from "@/hooks/loadData";
 
 export default async function  GalleryPage({searchParams}:{searchParams:Promise<{tag?:string}>}) {
     const tag=(await searchParams).tag
-    const results = await cloudinary.v2.search.expression(`${tag?`tags=${tag}`:""}`).fields('tags').execute() as { resources: ImageAPI[] }
+    const results = await loadSearchImages({tag})
 
     return(
         <section>

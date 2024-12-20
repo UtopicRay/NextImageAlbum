@@ -1,11 +1,11 @@
 import UploadButton from "@/components/UploadButton";
-import cloudinary from "cloudinary";
 import {Folder} from "@/types";
 import AlbumCard from "@/app/albums/AlbumCard";
+import {loadAlbums} from "@/hooks/loadData";
 
 
 export default async function AlbumPage() {
-    const {folders} = await cloudinary.v2.api.root_folders();
+    const {folders} = await loadAlbums()
     return (
         <section>
             <div className='flex justify-between'>
